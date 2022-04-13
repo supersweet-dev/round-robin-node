@@ -1,0 +1,13 @@
+{
+  "name": "round-robin-simulator",
+  "description": "A simple round robin scheduler.",
+  "author": "Jaime Alvarez Perez",
+  "dependencies": {
+    "cli": "^1.0.1",
+    "fs": "0.0.1-security"
+  },
+  "license": "MIT",
+  "scripts": {
+    "test": "./round-robin-test-script"
+  }
+}
