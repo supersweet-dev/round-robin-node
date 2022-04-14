@@ -9,6 +9,7 @@
   "license": "MIT",
   "scripts": {
     "test": "./round-robin-test-script",
-    "robin": "node ./round-robin.js"
+    "robin": "node round-robin.js",
+    "test windows": "round-robin-test-script-windows.bat"
   }
 }
