@@ -1,7 +1,4 @@
 #!/usr/bin/env node
-
-const { start } = require('repl');
-
 const print = console.log;
 const roundRobin = () => {
   const cli = require('cli'); //CLI dependecy parses command line style inputs.
@@ -11,6 +8,7 @@ const roundRobin = () => {
     overhead: ['o', 'Overhead Time in ms.', 'int', 0],
     quantum: ['q', 'Time Quantum in ms.', 'int', 50],
     result: ['r', 'File name for output', 'string', 'result.csv'],
+    n: ['n', 'Number of items to randomize. Default 500', 'int', 500],
   }); //Define options for command.
 
   const fs = require('fs'); //FS Dependency enables access to filesystem.
@@ -18,6 +16,7 @@ const roundRobin = () => {
   const resultname = cli.options.result;
   const overhead = cli.options.overhead;
   const quantum = cli.options.quantum;
+  var n = cli.options.n;
   let avgTurn = 0; //Average Turnaround Time
   let avgWait = 0; //Average Wait Time
   let totalTime = 0; //Total Processing Time
@@ -28,9 +27,8 @@ const roundRobin = () => {
     //Load input file.
     if (filename && err) throw err; //Stop program if unable to process file.
     if (!filename) {
-      console.log('using random data');
+      console.log('using random data, size %d', n);
       data = '';
-      let n = 500;
       let start = 0;
       for (let i = 1; i <= n; i++) {
         data += start;
