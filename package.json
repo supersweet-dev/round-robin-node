@@ -10,6 +10,9 @@
   "scripts": {
     "test": "./round-robin-test-script",
     "robin": "node round-robin.js",
-    "test windows": "round-robin-test-script-windows.bat"
+    "generate-json": "node generator.js",
+    "generate-knn": "node generator-knn.js",
+    "generate-txt": "node generator-txt.js",
+    "test-windows": "round-robin-test-script-windows.bat"
   }
 }
