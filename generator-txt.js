@@ -1,5 +1,5 @@
 const fs = require('fs'); //FS Dependency enables access to filesystem.
-const n = 50000;
+const n = 5000;
 console.log('using random data, size %d', n);
 data = '';
 let start = 0;
@@ -7,7 +7,7 @@ for (let i = 1; i <= n; i++) {
   data += start;
   start += Math.floor(Math.random() * (256 - 1) + 1);
   data += ', ';
-  data += Math.random() * (160 - 0.1) + 0.1;
+  data += Math.random() * (160 - 1 / 1000) + 1 / 1000;
   if (i == n) break;
   data += '\n';
 }
