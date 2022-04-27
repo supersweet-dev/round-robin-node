@@ -1,22 +1,22 @@
 Round Robin CPU Scheduling Emulator
 This is a Node.Js Command Line aplication. It requires npm to run.
-To install simply run `npm install` in the project directory. 
+To install simply run `npm install` in the project directory.
 To run the program enter 'node ./round-robin.js' in the command line.
-Default behavior is processing input.txt in the project directory, erroring out if not present. 
-input.txt should be in the format 'arrival-time-seconds burst-time-seconds' with any number of lines. 
-Program cannot handle incorrect input formats. 
+Default behavior is processing input.txt in the project directory, erroring out if not present.
+input.txt should be in the format 'arrival-time-seconds burst-time-seconds' with any number of lines.
+Program cannot handle incorrect input formats.
 
-Usage: 
+Usage:
 `npm run robin -- <args>`
 
-Options: 
-    -f File in arrival-time burst-time format, default: input.txt
-    -o Overhead value. Integer in milliseconds, default: 0
-    -q Quantum. Integer in milliseconds, default: 50
-    -r Result file overwrites existing, default result.csv
+Options:
+-f File in arrival-time burst-time format, default: '' uses 500 random samples with max burst time of 160s and max arrival gap of 256s
+-o Overhead value. Integer in milliseconds, default: 0
+-q Quantum. Integer in milliseconds, default: 50
+-r Result file overwrites existing, default result.csv
 
 Test script `npm test` runs program 24 times, using Overhead 0, 5, 10, 15, 20, 25 and Quantum 50, 100, 250, 500
 from input.txt. Saves results in files named 'o${current_overhead}q${current_quantum}.csv'.
 test command also saves the total, wait, and turnaround times of each run into bulkTestResults.csv
 All solution values are in milliseconds in the individual tables, and in seconds for Bulk Results.
-Code is commented where necessary. 
+Code is commented where necessary.

@@ -1,21 +1,19 @@
 #!/usr/bin/env node
 
+const { start } = require('repl');
+
+const print = console.log;
 const roundRobin = () => {
-  const cli = require("cli"); //CLI dependecy parses command line style inputs.
+  const cli = require('cli'); //CLI dependecy parses command line style inputs.
 
   cli.parse({
-    file: [
-      "f",
-      "File in arrival-time burst-time format",
-      "string",
-      "input.txt"
-    ],
-    overhead: ["o", "Overhead Time in ms.", "int", 0],
-    quantum: ["q", "Time Quantum in ms.", "int", 50],
-    result: ["r", "File name for output", "string", "result.csv"]
+    file: ['f', 'File in arrival-time burst-time format', 'string', ''],
+    overhead: ['o', 'Overhead Time in ms.', 'int', 0],
+    quantum: ['q', 'Time Quantum in ms.', 'int', 50],
+    result: ['r', 'File name for output', 'string', 'result.csv'],
   }); //Define options for command.
 
-  const fs = require("fs"); //FS Dependency enables access to filesystem.
+  const fs = require('fs'); //FS Dependency enables access to filesystem.
   const filename = cli.options.file; //Simplified variable names for option values.
   const resultname = cli.options.result;
   const overhead = cli.options.overhead;
@@ -26,14 +24,28 @@ const roundRobin = () => {
   let totalTurn = 0; //Total Turnaround Time
   let totalWait = 0; //Total Wait Time
 
-  fs.readFile(filename, "utf8", function(err, data) {
+  fs.readFile(filename, 'utf8', function (err, data) {
     //Load input file.
-    if (err) throw err; //Stop program if unable to process file.
+    if (filename && err) throw err; //Stop program if unable to process file.
+    if (!filename) {
+      console.log('using random data');
+      data = '';
+      let n = 500;
+      let start = 0;
+      for (let i = 1; i <= n; i++) {
+        data += start;
+        start += Math.floor(Math.random() * (256 - 1) + 1);
+        data += ' ';
+        data += Math.random() * (160 - 0.1) + 0.1;
+        if (i == n) break;
+        data += '\n';
+      }
+    }
 
     fs.writeFile(
       resultname,
-      "PId,Arrival Time,Run Time,Waiting Time,Turnaround Time,Avg Wait,Avg Turnaround\n",
-      function(err) {
+      'PId,Arrival Time,Run Time,Waiting Time,Turnaround Time,Avg Wait,Avg Turnaround\n',
+      function (err) {
         if (err) throw err;
         console.log(`Solution writing to ${resultname}`);
       } //Create or overwrite result file. First line is CSV Headers.
@@ -51,7 +63,7 @@ const roundRobin = () => {
         runtime: parseFloat(process[1]) * 1000, //Second field is burst time, convert to ms.
         remainingTime: parseFloat(process[1]) * 1000, //Keep track of remaining time, initially same as burst time.
         wait: 0, //Keep track of total wait time for each individual process.
-        turnaround: 0 //Recond finish time of each process.
+        turnaround: 0, //Recond finish time of each process.
       };
       processes.push(process); //Push into process queue.
       id++;
@@ -88,19 +100,25 @@ const roundRobin = () => {
     processes = processes.sort((a, b) => (a.id > b.id ? 1 : -1)); //Sort process queue by id, returning to orignal input order.
     avgTurn = totalTurn / processes.length; //Calculate time averages.
     avgWait = totalWait / processes.length;
-    let processString = "";
+    let processString = '';
     for (process of processes) {
       processString += `${process.id},${process.arrival},${process.runtime},${process.wait},${process.turnaround},-,-\n`;
     } //Write one line per process.
     processString += `-,-,-,-,-,${avgWait},${avgTurn}`; //final line contains averages.
-    fs.appendFile(resultname, processString, function(err) {
+    fs.appendFile(resultname, processString, function (err) {
       //Write results to file.
       if (err) throw err;
     });
-    fs.appendFile('bulkTestResults.csv', `${overhead},${quantum},${avgWait/1000},${avgTurn/1000},${totalTime/1000}\n`, function(err) {
-      //Write results to file.
-      if (err) throw err;
-    });
+    fs.appendFile(
+      'bulkTestResults.csv',
+      `${overhead},${quantum},${avgWait / 1000},${avgTurn / 1000},${
+        totalTime / 1000
+      }\n`,
+      function (err) {
+        //Write results to file.
+        if (err) throw err;
+      }
+    );
   });
 };
 
