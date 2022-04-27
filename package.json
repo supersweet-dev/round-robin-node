@@ -3,8 +3,13 @@
   "description": "A simple round robin scheduler.",
   "author": "Jaime Alvarez Perez",
   "dependencies": {
+    "@tensorflow/tfjs": "^3.16.0",
+    "@tensorflow/tfjs-node": "^3.16.0",
+    "@tensorflow/tfjs-node-gpu": "^3.16.0",
     "cli": "^1.0.1",
-    "fs": "0.0.1-security"
+    "fs": "0.0.1-security",
+    "node-gyp": "^9.0.0",
+    "tfjs": "^0.6.0"
   },
   "license": "MIT",
   "scripts": {
