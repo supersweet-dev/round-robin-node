@@ -6,7 +6,7 @@ let start = 0;
 for (let i = 1; i <= n; i++) {
   data += start;
   start += Math.floor(Math.random() * (256 - 1) + 1);
-  data += ', ';
+  data += ' ';
   data += Math.random() * (160 - 1 / 1000) + 1 / 1000;
   if (i == n) break;
   data += '\n';
