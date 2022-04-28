@@ -3,7 +3,7 @@ const n = 5000;
 console.log('using random data, size %d', n);
 data = '';
 let start = 0;
-quantum = 15;
+quantum = 500;
 bursts = [];
 for (let i = 1; i <= n; i++) {
   bursts.push((Math.random() * (160 - 1 / 1000) + 1 / 1000) * 1000);
